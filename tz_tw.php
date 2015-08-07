@@ -1,25 +1,25 @@
 <?php
 /* ---------------------------------------------------- */
-/* 程序名稱: PHP探針-Yahei
-/* 程序功能: 探測系統的Web伺服器運行環境
-/* 程序開發: Yahei.Net
-/* 聯繫方式: info@Yahei.net
+/* 程式名稱: PHP探針-Yahei
+/* 程式功能: 探測系統的Web伺服器運作環境
+/* 程式開發: Yahei.Net
+/* 聯絡方式: info@Yahei.net
 /* Date: 1970-01-01 / 2012-07-08
 /* ---------------------------------------------------- */
 /* 使用條款:
-/* 1.该软件免费使用.
-/* 2.禁止任何衍生版本.
+/* 1.此軟體免费使用。
+/* 2.禁止任何衍生版本。
 /* ---------------------------------------------------- */
 /* 感謝以下朋友為探針做出的貢獻:
 /* zyypp,酷を龍捲風,龍智超,菊花腫了,閒人,Clare Lou,hotsnow
 /* 二戒,yexinzhu,wangyu1314,Kokgog,gibyasus,akw28888,A大,huli
-/* 小松,charwin,华景网络
+/* 小松,charwin,华景网络,LNDDYL
 /* 您可能是下一個?
 /* ---------------------------------------------------- */
 error_reporting(0); //抑制所有錯誤資訊
 @header("content-Type: text/html; charset=utf-8"); //語言強制
 ob_start();
-date_default_timezone_set('Asia/Shanghai');//此句用于消除时间差
+date_default_timezone_set('Asia/Shanghai');//此句用於消除時間差
 
 $title = "雅黑PHP探針[繁體版]";
 $version = "v0.4.7"; //版本號
@@ -74,7 +74,7 @@ function valid_email($str)
 	return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
 }
 
-//檢測PHP設置參數
+//檢測PHP設定參數
 function show($varName)
 {
 	switch($result = get_cfg_var($varName))
@@ -93,7 +93,7 @@ function show($varName)
 	}
 }
 
-//保留伺服器性能測試結果
+//保留伺服器效能測試結果
 $valInt = isset($_POST['pInt']) ? $_POST['pInt'] : "未測試";
 $valFloat = isset($_POST['pFloat']) ? $_POST['pFloat'] : "未測試";
 $valIo = isset($_POST['pIo']) ? $_POST['pIo'] : "未測試";
@@ -146,7 +146,7 @@ elseif($_GET['act'] == "Function")
 	{
 	}
 	echo "<pre>";
-	Echo "這裡顯示系統所支持的所有函數,和自定義函數\n";
+	Echo "這裡顯示系統所支援的所有函數，與自訂函數\n";
 	print_r($arr);
 	echo "</pre>";
 	exit();
@@ -165,7 +165,7 @@ elseif($_GET['act'] == "Function")
 	{
 	}
 	echo "<pre>";
-	Echo "這裡顯示系統禁用的函數\n";
+	Echo "這裡顯示系統停用的函數\n";
 	print_r($arr);
 	echo "</pre>";
 	exit();
@@ -185,17 +185,17 @@ if ($_POST['act'] == 'MySQL檢測')
 }
 elseif ($_POST['act'] == '函數檢測')
 {
-	$funRe = "函數".$_POST['funName']."支持狀況檢測結果：".isfun1($_POST['funName']);
+	$funRe = "函數".$_POST['funName']."支援狀況檢測結果：".isfun1($_POST['funName']);
 } 
 elseif ($_POST['act'] == '郵件檢測')
 {
-	$mailRe = "郵件發送檢測結果：發送";
+	$mailRe = "郵件傳送檢測結果：傳送";
 	if($_SERVER['SERVER_PORT']==80){$mailContent = "http://".$_SERVER['SERVER_NAME'].($_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME']);}
 	else{$mailContent = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].($_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME']);}
 	$mailRe .= (false !== @mail($_POST["mailAdd"], $mailContent, "This is a test mail!")) ? "完成":"失敗";
 }
 
-//網絡速度測試
+//網路速度測試
 if(isset($_POST['speed']))
 {
 	$speed=round(100/($_POST['speed']/1000),2);
@@ -214,7 +214,7 @@ else
 }	
 	
 	
-// 檢測函數支持
+// 檢測函數支援
 function isfun($funName = '')
 {
     if (!$funName || trim($funName) == '' || preg_match('~[^a-z0-9\_]+~i', $funName, $tmp)) return '錯誤';
@@ -281,7 +281,7 @@ function GetCpuPercentages($stat1, $stat2) {if(count($stat1)!==count($stat2)){re
 $stat1 = GetCoreInformation();sleep(1);$stat2 = GetCoreInformation();$data = GetCpuPercentages($stat1, $stat2);
 $cpu_show = $data['cpu0']['user']."%us,  ".$data['cpu0']['sys']."%sy,  ".$data['cpu0']['nice']."%ni, ".$data['cpu0']['idle']."%id,  ".$data['cpu0']['iowait']."%wa,  ".$data['cpu0']['irq']."%irq,  ".$data['cpu0']['softirq']."%softirq";
 function makeImageUrl($title, $data) {$api='http://api.yahei.net/tz/cpu_show.php?id=';$url.=$data['user'].',';$url.=$data['nice'].',';$url.=$data['sys'].',';$url.=$data['idle'].',';$url.=$data['iowait'];$url.='&chdl=User|Nice|Sys|Idle|Iowait&chdlp=b&chl=';$url.=$data['user'].'%25|';$url.=$data['nice'].'%25|';$url.=$data['sys'].'%25|';$url.=$data['idle'].'%25|';$url.=$data['iowait'].'%25';$url.='&chtt=Core+'.$title;return $api.base64_encode($url);}
-if($_GET['act'] == "cpu_percentage"){echo "<center><b><font face='Microsoft YaHei' color='#666666' size='3'>圖片加載慢，請耐心等待！</font></b><br /><br />";foreach( $data as $k => $v ) {echo '<img src="' . makeImageUrl( $k, $v ) . '" style="width:360px;height:240px;border: #CCCCCC 1px solid;background: #FFFFFF;margin:5px;padding:5px;" />';}echo "</center>";exit();}
+if($_GET['act'] == "cpu_percentage"){echo "<center><b><font face='Microsoft YaHei' color='#666666' size='3'>圖片載入慢，請耐心等待！</font></b><br /><br />";foreach( $data as $k => $v ) {echo '<img src="' . makeImageUrl( $k, $v ) . '" style="width:360px;height:240px;border: #CCCCCC 1px solid;background: #FFFFFF;margin:5px;padding:5px;" />';}echo "</center>";exit();}
 
 // 根據不同系統取得CPU相關資訊
 switch(PHP_OS)
@@ -329,7 +329,7 @@ function sys_linux()
 		else
 			$x1 = ' ×'.$res['cpu']['num'];
 		$mhz[1][0] = ' | 頻率:'.$mhz[1][0];
-		$cache[1][0] = ' | 二級緩存:'.$cache[1][0];
+		$cache[1][0] = ' | 二級快取:'.$cache[1][0];
 		$bogomips[1][0] = ' | Bogomips:'.$bogomips[1][0];
 		$res['cpu']['model'][] = $model[1][0].$mhz[1][0].$cache[1][0].$bogomips[1][0].$x1;
         if (false !== is_array($res['cpu']['model'])) $res['cpu']['model'] = implode("<br />", $res['cpu']['model']);
@@ -403,7 +403,7 @@ function sys_freebsd()
 	$days = floor($hours / 24);
 	$hours = floor($hours - ($days * 24));
 	$min = floor($min - ($days * 60 * 24) - ($hours * 60));
-	if ($days !== 0) $res['uptime'] = $days."天";
+	if ($days !== 0) $res['uptime'] = $days."日";
 	if ($hours !== 0) $res['uptime'] .= $hours."小時";
 	$res['uptime'] .= $min."分鐘";
 	//MEMORY
@@ -431,7 +431,7 @@ function get_key($keyName)
 	return do_command('sysctl', "-n $keyName");
 }
 
-//確定執行文件位置 FreeBSD
+//確定執行檔案位置 FreeBSD
 function find_command($commandName)
 {
 	$path = array('/bin', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin', '/usr/local/sbin');
@@ -504,14 +504,14 @@ function sys_windows()
 	$days = floor($hours / 24);
 	$hours = floor($hours - ($days * 24));
 	$min = floor($min - ($days * 60 * 24) - ($hours * 60));
-	if ($days !== 0) $res['uptime'] = $days."天";
+	if ($days !== 0) $res['uptime'] = $days."日";
 	if ($hours !== 0) $res['uptime'] .= $hours."小時";
 	$res['uptime'] .= $min."分鐘";
 
 	//MEMORY
 	$res['memTotal'] = round($sysinfo[0]['TotalVisibleMemorySize']/1024,2);
 	$res['memFree'] = round($sysinfo[0]['FreePhysicalMemory']/1024,2);
-	$res['memUsed'] = $res['memTotal']-$res['memFree'];	//上面兩行已經除以1024,這行不用再除了
+	$res['memUsed'] = $res['memTotal']-$res['memFree'];	//上面兩行已經除以1024，這行不用再除了
 	$res['memPercent'] = round($res['memUsed'] / $res['memTotal']*100,2);
 
 	$swapinfo = GetWMI($wmi,"Win32_PageFileUsage", array('AllocatedBaseSize','CurrentUsage'));
@@ -562,10 +562,10 @@ function bar($percent)
 <?php
 }
 
-$uptime = $sysInfo['uptime']; //在线时间
-$stime = date('Y-m-d H:i:s'); //系统当前时间
+$uptime = $sysInfo['uptime']; //線上時間
+$stime = date('Y-m-d H:i:s'); //系統目前時間
 
-//硬盘
+//硬碟
 $dt = round(@disk_total_space(".")/(1024*1024*1024),3); //总
 $df = round(@disk_free_space(".")/(1024*1024*1024),3); //可用
 $du = $dt-$df; //已用
@@ -591,7 +591,7 @@ if($sysInfo['memTotal']<1024)
 	$memRealFree = $sysInfo['memRealFree']." M"; //真實記憶體空閒
 	$memRealPercent = $sysInfo['memRealPercent']; //真實記憶體使用比率
 	$memPercent = $sysInfo['memPercent']; //記憶體總使用率
-	$memCachedPercent = $sysInfo['memCachedPercent']; //cache記憶體使用率
+	$memCachedPercent = $sysInfo['memCachedPercent']; //快取記憶體使用率
 }
 else
 {
@@ -609,10 +609,10 @@ else
 	$memRealFree = round($sysInfo['memRealFree']/1024,3)." G"; //真實記憶體空閒
 	$memRealPercent = $sysInfo['memRealPercent']; //真實記憶體使用比率
 	$memPercent = $sysInfo['memPercent']; //記憶體總使用率
-	$memCachedPercent = $sysInfo['memCachedPercent']; //cache記憶體使用率
+	$memCachedPercent = $sysInfo['memCachedPercent']; //快取記憶體使用率
 }
 
-//網卡流量
+//網路卡流量
 $strs = @file("/proc/net/dev"); 
 
 for ($i = 2; $i < count($strs); $i++ )
@@ -624,7 +624,7 @@ for ($i = 2; $i < count($strs); $i++ )
 	$NetOut[$i]  = formatsize($info[10][0]);
 }
 
-//ajax調用實時刷新
+//ajax呼叫即時更新
 if ($_GET['act'] == "rt")
 {
 	$arr=array('useSpace'=>"$du",'freeSpace'=>"$df",'hdPercent'=>"$hdPercent",'barhdPercent'=>"$hdPercent%",'TotalMemory'=>"$mt",'UsedMemory'=>"$mu",'FreeMemory'=>"$mf",'CachedMemory'=>"$mc",'Buffers'=>"$mb",'TotalSwap'=>"$st",'swapUsed'=>"$su",'swapFree'=>"$sf",'loadAvg'=>"$load",'uptime'=>"$uptime",'freetime'=>"$freetime",'bjtime'=>"$bjtime",'stime'=>"$stime",'memRealPercent'=>"$memRealPercent",'memRealUsed'=>"$memRealUsed",'memRealFree'=>"$memRealFree",'memPercent'=>"$memPercent%",'memCachedPercent'=>"$memCachedPercent",'barmemCachedPercent'=>"$memCachedPercent%",'swapPercent'=>"$swapPercent",'barmemRealPercent'=>"$memRealPercent%",'barswapPercent'=>"$swapPercent%",'NetOut2'=>"$NetOut[2]",'NetOut3'=>"$NetOut[3]",'NetOut4'=>"$NetOut[4]",'NetOut5'=>"$NetOut[5]",'NetOut6'=>"$NetOut[6]",'NetOut7'=>"$NetOut[7]",'NetOut8'=>"$NetOut[8]",'NetOut9'=>"$NetOut[9]",'NetOut10'=>"$NetOut[10]",'NetInput2'=>"$NetInput[2]",'NetInput3'=>"$NetInput[3]",'NetInput4'=>"$NetInput[4]",'NetInput5'=>"$NetInput[5]",'NetInput6'=>"$NetInput[6]",'NetInput7'=>"$NetInput[7]",'NetInput8'=>"$NetInput[8]",'NetInput9'=>"$NetInput[9]",'NetInput10'=>"$NetInput[10]",'NetOutSpeed2'=>"$NetOutSpeed[2]",'NetOutSpeed3'=>"$NetOutSpeed[3]",'NetOutSpeed4'=>"$NetOutSpeed[4]",'NetOutSpeed5'=>"$NetOutSpeed[5]",'NetInputSpeed2'=>"$NetInputSpeed[2]",'NetInputSpeed3'=>"$NetInputSpeed[3]",'NetInputSpeed4'=>"$NetInputSpeed[4]",'NetInputSpeed5'=>"$NetInputSpeed[5]");
@@ -783,10 +783,10 @@ function displayData(dataJSON)
 		<tr>
 			<th class="w_logo">雅黑PHP探針</th>
 			<th class="w_top"><a href="#w_php">PHP參數</a></th>
-			<th class="w_top"><a href="#w_module">組件支持</a></th>
-			<th class="w_top"><a href="#w_module_other">第三方组件</a></th>
-			<th class="w_top"><a href="#w_db">資料庫支持</a></th>
-			<th class="w_top"><a href="#w_performance">性能檢測</a></th>
+			<th class="w_top"><a href="#w_module">模組支援</a></th>
+			<th class="w_top"><a href="#w_module_other">第三方模組</a></th>
+			<th class="w_top"><a href="#w_db">資料庫支援</a></th>
+			<th class="w_top"><a href="#w_performance">效能檢測</a></th>
 			<th class="w_top"><a href="#w_networkspeed">網速檢測</a></th>
 			<th class="w_top"><a href="#w_MySQL">MySQL檢測</a></th>
 			<th class="w_top"><a href="#w_function">函数檢測</a></th>
@@ -799,15 +799,15 @@ function displayData(dataJSON)
 <table>
   <tr><th colspan="4">伺服器參數</th></tr>
   <tr>
-    <td>伺服器域名/IP地址</td>
-    <td colspan="3"><?php echo @get_current_user();?> - <?php echo $_SERVER['SERVER_NAME'];?>(<?php if('/'==DIRECTORY_SEPARATOR){echo $_SERVER['SERVER_ADDR'];}else{echo @gethostbyname($_SERVER['SERVER_NAME']);} ?>)&nbsp;&nbsp;你的IP地址是：<?php echo @$_SERVER['REMOTE_ADDR'];?></td>
+    <td>伺服器網域名稱/IP位址</td>
+    <td colspan="3"><?php echo @get_current_user();?> - <?php echo $_SERVER['SERVER_NAME'];?>(<?php if('/'==DIRECTORY_SEPARATOR){echo $_SERVER['SERVER_ADDR'];}else{echo @gethostbyname($_SERVER['SERVER_NAME']);} ?>)&nbsp;&nbsp;你的IP位址是：<?php echo @$_SERVER['REMOTE_ADDR'];?></td>
   </tr>
   <tr>
     <td>伺服器標識</td>
     <td colspan="3"><?php if($sysInfo['win_n'] != ''){echo $sysInfo['win_n'];}else{echo @php_uname();};?></td>
   </tr>
   <tr>
-    <td width="13%">伺服器操作系統</td>
+    <td width="13%">伺服器作業系統</td>
     <td width="37%"><?php $os = explode(" ", php_uname()); echo $os[0];?> &nbsp;核心版本：<?php if('/'==DIRECTORY_SEPARATOR){echo $os[2];}else{echo $os[1];} ?></td>
     <td width="13%">伺服器解譯引擎</td>
     <td width="37%"><?php echo $_SERVER['SERVER_SOFTWARE'];?></td>
@@ -815,11 +815,11 @@ function displayData(dataJSON)
   <tr>
     <td>伺服器語言</td>
     <td><?php echo getenv("HTTP_ACCEPT_LANGUAGE");?></td>
-    <td>伺服器端口</td>
+    <td>伺服器埠</td>
     <td><?php echo $_SERVER['SERVER_PORT'];?></td>
   </tr>
   <tr>
-	  <td>伺服器主機名</td>
+	  <td>伺服器主機名稱</td>
 	  <td><?php if('/'==DIRECTORY_SEPARATOR ){echo $os[1];}else{echo $os[2];} ?></td>
 	  <td>絕對路徑</td>
 	  <td><?php echo $_SERVER['DOCUMENT_ROOT']?str_replace('\\','/',$_SERVER['DOCUMENT_ROOT']):str_replace('\\','/',dirname(__FILE__));?></td>
@@ -834,17 +834,17 @@ function displayData(dataJSON)
 
 <?if("show"==$sysReShow){?>
 <table>
-  <tr><th colspan="6">伺服器實時數據</th></tr>
+  <tr><th colspan="6">伺服器即時資料</th></tr>
   <tr>
-    <td width="13%" >伺服器當前時間</td>
+    <td width="13%" >伺服器目前時間</td>
     <td width="37%" ><span id="stime">1900-01-01 00:00:00</span></td>
-    <td width="13%" >伺服器已運行時間</td>
+    <td width="13%" >伺服器已運作時間</td>
     <td width="37%" colspan="3"><span id="uptime">00天00小時00分鐘</span></td>
   </tr>
   <tr>
     <td>總空間</td>
     <td><?php echo $dt;?>&nbsp;G</td>
-    <td><a href="#" title="顯示的是網站所在的目錄的可用空間，非伺服器上所有磁盤之可用空間！">可用空間</a></td>
+    <td><a href="#" title="顯示的是網站所在的目錄的可用空間，非伺服器上所有磁碟之可用空間！">可用空間</a></td>
     <td colspan="3"><font color='#CC0000'><span id="freeSpace">0</span></font>&nbsp;G</td>
   </tr>
   <tr>
@@ -853,11 +853,11 @@ function displayData(dataJSON)
   </tr>
   <tr>
     <td>CPU使用狀況</td>
-    <td colspan="5"><?php if('/'==DIRECTORY_SEPARATOR){echo $cpu_show." | <a href='".$phpSelf."?act=cpu_percentage' target='_blank' class='static'>查看圖表</a>";}else{echo "暫時只支持Linux系統";}?>
+    <td colspan="5"><?php if('/'==DIRECTORY_SEPARATOR){echo $cpu_show." | <a href='".$phpSelf."?act=cpu_percentage' target='_blank' class='static'>檢視圖表</a>";}else{echo "暫時只支援Linux系統";}?>
 	</td>
   </tr>
   <tr>
-    <td>硬盤使用狀況</td>
+    <td>硬碟使用狀況</td>
     <td colspan="5">
 		總空間 <?php echo $dt;?>&nbsp;G，
 		已用 <font color='#333333'><span id="useSpace"><?php echo $du;?></span></font>&nbsp;G，
@@ -938,15 +938,15 @@ if($sysInfo['swapTotal']>0)
 
 <?php if (false !== ($strs = @file("/proc/net/dev"))) : ?>
 <table width="100%" cellpadding="3" cellspacing="0" align="center">
-    <tr><th colspan="5">網絡使用狀況</th></tr>
+    <tr><th colspan="5">網路使用狀況</th></tr>
 <?php for ($i = 2; $i < count($strs); $i++ ) : ?>
 <?php preg_match_all( "/([^\s]+):[\s]{0,}(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/", $strs[$i], $info );?>
      <tr>
         <td width="13%"><?php echo $info[1][0]?> : </td>
         <td width="29%">入網: <font color='#CC0000'><span id="NetInput<?php echo $i?>"><?php echo $NetInput[$i]?></span></font></td>
-		<td width="14%">實時: <font color='#CC0000'><span id="NetInputSpeed<?php echo $i?>">0B/s</span></font></td>
+		<td width="14%">即時: <font color='#CC0000'><span id="NetInputSpeed<?php echo $i?>">0B/s</span></font></td>
         <td width="29%">出網: <font color='#CC0000'><span id="NetOut<?php echo $i?>"><?php echo $NetOut[$i]?></span></font></td>
-		<td width="14%">實時: <font color='#CC0000'><span id="NetOutSpeed<?php echo $i?>">0B/s</span></font></td>
+		<td width="14%">即時: <font color='#CC0000'><span id="NetOutSpeed<?php echo $i?>">0B/s</span></font></td>
     </tr>
 <?php endfor; ?>
 </table>
@@ -954,7 +954,7 @@ if($sysInfo['swapTotal']>0)
 
 <table width="100%" cellpadding="3" cellspacing="0" align="center">
   <tr>
-    <th colspan="4">PHP已編譯模塊檢測</th>
+    <th colspan="4">PHP已編譯模組檢測</th>
   </tr>
   <tr>
     <td colspan="4"><span class="w_small">
@@ -987,49 +987,49 @@ foreach ($able as $key=>$value) {
     <td width="18%"><?php echo PHP_VERSION;?></td>
   </tr>
   <tr>
-    <td>PHP運行方式：</td>
+    <td>PHP執行方式：</td>
     <td><?php echo strtoupper(php_sapi_name());?></td>
-    <td>腳本佔用最大記憶體（memory_limit）：</td>
+    <td>指令碼佔用最大記憶體（memory_limit）：</td>
     <td><?php echo show("memory_limit");?></td>
   </tr>
   <tr>
     <td>PHP安全模式（safe_mode）：</td>
     <td><?php echo show("safe_mode");?></td>
-    <td>POST方法提交最大限制（post_max_size）：</td>
+    <td>POST方法送出最大限制（post_max_size）：</td>
     <td><?php echo show("post_max_size");?></td>
   </tr>
   <tr>
-    <td>上傳文件最大限制（upload_max_filesize）：</td>
+    <td>上傳檔案最大限制（upload_max_filesize）：</td>
     <td><?php echo show("upload_max_filesize");?></td>
-    <td>浮點型數據顯示的有效位數（precision）：</td>
+    <td>浮點型資料顯示的有效位數（precision）：</td>
     <td><?php echo show("precision");?></td>
   </tr>
   <tr>
-    <td>腳本超時時間（max_execution_time）：</td>
+    <td>指令碼逾時時間（max_execution_time）：</td>
     <td><?php echo show("max_execution_time");?>秒</td>
-    <td>socket超時時間（default_socket_timeout）：</td>
+    <td>socket逾時時間（default_socket_timeout）：</td>
     <td><?php echo show("default_socket_timeout");?>秒</td>
   </tr>
   <tr>
     <td>PHP頁面根目錄（doc_root）：</td>
     <td><?php echo show("doc_root");?></td>
-    <td>用戶根目錄（user_dir）：</td>
+    <td>使用者根目錄（user_dir）：</td>
     <td><?php echo show("user_dir");?></td>
   </tr>
   <tr>
     <td>dl()函數（enable_dl）：</td>
     <td><?php echo show("enable_dl");?></td>
-    <td>指定包含文件目錄（include_path）：</td>
+    <td>指定包含檔案目錄（include_path）：</td>
     <td><?php echo show("include_path");?></td>
   </tr>
   <tr>
     <td>顯示錯誤資訊（display_errors）：</td>
     <td><?php echo show("display_errors");?></td>
-    <td>自定義全局變量（register_globals）：</td>
+    <td>自訂全局變數（register_globals）：</td>
     <td><?php echo show("register_globals");?></td>
   </tr>
   <tr>
-    <td>數據反斜線轉譯（magic_quotes_gpc）：</td>
+    <td>資料反斜線轉譯（magic_quotes_gpc）：</td>
     <td><?php echo show("magic_quotes_gpc");?></td>
     <td>"&lt;?...?&gt;"短標籤（short_open_tag）：</td>
     <td><?php echo show("short_open_tag");?></td>
@@ -1043,23 +1043,23 @@ foreach ($able as $key=>$value) {
   <tr>
     <td>忽略重複的錯誤源（ignore_repeated_source）：</td>
     <td><?php echo show("ignore_repeated_source");?></td>
-    <td>報告記憶體洩漏（report_memleaks）：</td>
+    <td>回報記憶體洩漏（report_memleaks）：</td>
     <td><?php echo show("report_memleaks");?></td>
   </tr>
   <tr>
-    <td>自動字符串轉譯（magic_quotes_gpc）：</td>
+    <td>自動字串轉譯（magic_quotes_gpc）：</td>
     <td><?php echo show("magic_quotes_gpc");?></td>
-    <td>外部字符串自動轉譯（magic_quotes_runtime）：</td>
+    <td>外部字串自動轉譯（magic_quotes_runtime）：</td>
     <td><?php echo show("magic_quotes_runtime");?></td>
   </tr>
   <tr>
-    <td>打開遠程文件（allow_url_fopen）：</td>
+    <td>開啟遠端檔案（allow_url_fopen）：</td>
     <td><?php echo show("allow_url_fopen");?></td>
-    <td>聲明argv和argc變量（register_argc_argv）：</td>
+    <td>聲明argv與argc變數（register_argc_argv）：</td>
     <td><?php echo show("register_argc_argv");?></td>
   </tr>
   <tr>
-    <td>Cookie 支持：</td>
+    <td>Cookie 支援：</td>
     <td><?php echo isset($_COOKIE)?'<font color="green">√</font>' : '<font color="red">×</font>';?></td>
     <td>拼寫檢查（ASpell Library）：</td>
     <td><?php echo isfun("aspell_check_raw");?></td>
@@ -1070,29 +1070,29 @@ foreach ($able as $key=>$value) {
     <td>PREL相容語法（PCRE）：</td>
     <td><?php echo isfun("preg_match");?></td>
    <tr>
-    <td>PDF文檔支持：</td>
+    <td>PDF檔案支援：</td>
     <td><?php echo isfun("pdf_close");?></td>
-    <td>SNMP網絡管理協議：</td>
+    <td>SNMP網路管理協定：</td>
     <td><?php echo isfun("snmpget");?></td>
   </tr> 
    <tr>
     <td>VMailMgr郵件處理：</td>
     <td><?php echo isfun("vm_adduser");?></td>
-    <td>Curl支持：</td>
+    <td>Curl支援：</td>
     <td><?php echo isfun("curl_init");?></td>
   </tr> 
    <tr>
-    <td>SMTP支持：</td>
+    <td>SMTP支援：</td>
     <td><?php echo get_cfg_var("SMTP")?'<font color="green">√</font>' : '<font color="red">×</font>';?></td>
-    <td>SMTP地址：</td>
+    <td>SMTP位址：</td>
     <td><?php echo get_cfg_var("SMTP")?get_cfg_var("SMTP"):'<font color="red">×</font>';?></td>
   </tr> 
 	<tr>
-		<td>默認支持函數（enable_functions）：</td>
-		<td colspan="3"><a href='<?php echo $phpSelf;?>?act=Function' target='_blank' class='static'>請點這裡查看詳細！</a></td>		
+		<td>預設支援函數（enable_functions）：</td>
+		<td colspan="3"><a href='<?php echo $phpSelf;?>?act=Function' target='_blank' class='static'>請點這裡檢視詳細資料！</a></td>		
 	</tr>
 	<tr>
-		<td>被禁用的函數（disable_functions）：</td>
+		<td>被停用的函數（disable_functions）：</td>
 		<td colspan="3" class="word">
 <?php 
 $disFuns=get_cfg_var("disable_functions");
@@ -1119,30 +1119,30 @@ else
 </table>
 
 <a name="w_module"></a>
-<!--組件資訊-->
+<!--模組資訊-->
 <table>
-  <tr><th colspan="4">組件支持</th></tr>
+  <tr><th colspan="4">模組支援</th></tr>
   <tr>
-    <td width="32%">FTP支持：</td>
+    <td width="32%">FTP支援：</td>
     <td width="18%"><?php echo isfun("ftp_login");?></td>
-    <td width="32%">XML解析支持：</td>
+    <td width="32%">XML解析支援：</td>
     <td width="18%"><?php echo isfun("xml_set_object");?></td>
   </tr>
   <tr>
-    <td>Session支持：</td>
+    <td>Session支援：</td>
     <td><?php echo isfun("session_start");?></td>
-    <td>Socket支持：</td>
+    <td>Socket支援：</td>
     <td><?php echo isfun("socket_accept");?></td>
   </tr>
   <tr>
-    <td>Calendar支持</td>
+    <td>Calendar支援</td>
     <td><?php echo isfun('cal_days_in_month');?>
 	</td>
-    <td>允許URL打開文件：</td>
+    <td>允許URL開啟檔案：</td>
     <td><?php echo show("allow_url_fopen");?></td>
   </tr>
   <tr>
-    <td>GD庫支持：</td>
+    <td>GD庫支援：</td>
     <td>
     <?php
         if(function_exists(gd_info)) {
@@ -1150,7 +1150,7 @@ else
 	        echo $gd_info["GD Version"];
 	    }else{echo '<font color="red">×</font>';}
 	?></td>
-    <td>壓縮文件支持(Zlib)：</td>
+    <td>壓縮檔支援(Zlib)：</td>
     <td><?php echo isfun("gzclose");?></td>
   </tr>
   <tr>
@@ -1160,9 +1160,9 @@ else
     <td><?php echo isfun("JDToGregorian");?></td>
   </tr>
   <tr>
-    <td>正則表達式函數庫：</td>
+    <td>規則運算式函數庫：</td>
     <td><?php echo isfun("preg_match");?></td>
-    <td>WDDX支持：</td>
+    <td>WDDX支援：</td>
     <td><?php echo isfun("wddx_add_vars");?></td>
   </tr>
   <tr>
@@ -1174,21 +1174,21 @@ else
   <tr>
     <td>高精度數學運算：</td>
     <td><?php echo isfun("bcadd");?></td>
-    <td>LDAP目錄協議：</td>
+    <td>LDAP目錄協定：</td>
     <td><?php echo isfun("ldap_close");?></td>
   </tr>
   <tr>
     <td>MCrypt加密處理：</td>
     <td><?php echo isfun("mcrypt_cbc");?></td>
-    <td>哈希計算：</td>
+    <td>雜湊計算：</td>
     <td><?php echo isfun("mhash_count");?></td>
   </tr>
 </table>
 
 <a name="w_module_other"></a>
-<!--第三方組件資訊-->
+<!--第三方模組資訊-->
 <table>
-  <tr><th colspan="4">第三方組件</th></tr>
+  <tr><th colspan="4">第三方模組</th></tr>
   <tr>
     <td width="32%">Zend版本</td>
     <td width="18%"><?php $zend_version = zend_version();if(empty($zend_version)){echo '<font color=red>×</font>';}else{echo $zend_version;}?></td>
@@ -1223,9 +1223,9 @@ else
 </table>
 
 <a name="w_db"></a>
-<!--資料庫支持-->
+<!--資料庫支援-->
 <table>
-  <tr><th colspan="4">資料庫支持</th></tr>
+  <tr><th colspan="4">資料庫支援</th></tr>
   <tr>
     <td width="32%">MySQL 資料庫：</td>
     <td width="18%"><?php echo isfun("mysql_close");?>
@@ -1281,14 +1281,14 @@ else
 
 <a name="w_performance"></a><a name="bottom"></a>
 <form action="<?php echo $_SERVER[PHP_SELF]."#bottom";?>" method="post">
-<!--伺服器性能檢測-->
+<!--伺服器效能檢測-->
 <table>
-  <tr><th colspan="5">伺服器性能檢測</th></tr>
+  <tr><th colspan="5">伺服器效能檢測</th></tr>
   <tr align="center">
     <td width="19%">參照對象</td>
     <td width="17%">整數運算能力檢測<br />(1+1運算300萬次)</td>
     <td width="17%">浮點運算能力檢測<br />(圓周率開平方300萬次)</td>
-    <td width="17%">數據I/O能力檢測<br />(讀取10K文件1萬次)</td>
+    <td width="17%">資料I/O能力檢測<br />(讀取10K檔案1萬次)</td>
     <td width="30%">CPU資訊</td>
   </tr>
   <tr align="center">
@@ -1334,7 +1334,7 @@ else
     <td align="left">4 x Xeon E5530 @ 2.40GHz</td>
   </tr>
   <tr align="center">
-    <td>本臺伺服器</td>
+    <td>本台伺服器</td>
     <td><?php echo $valInt;?><br /><input class="btn" name="act" type="submit" value="整型測試" /></td>
     <td><?php echo $valFloat;?><br /><input class="btn" name="act" type="submit" value="浮點測試" /></td>
     <td><?php echo $valIo;?><br /><input class="btn" name="act" type="submit" value="IO測試" /></td>
@@ -1348,18 +1348,18 @@ else
 <a name="w_networkspeed"></a>
 <!--網絡速度測試-->
 <table>
-	<tr><th colspan="3">網絡速度測試</th></tr>
+	<tr><th colspan="3">網路速度測試</th></tr>
   <tr>
     <td width="19%" align="center"><input name="act" type="submit" class="btn" value="開始測試" />
         <br />
-	向客戶端傳送1000k字節數據<br />
-	帶寬比例按理想值計算
+	向用戶端傳送1000k位元組資料<br />
+	頻寬比例按理想值計算
 	</td>
     <td width="81%" align="center" >
 
   <table align="center" width="550" border="0" cellspacing="0" cellpadding="0" >
     <tr >
-    <td height="15" width="50">帶寬</td>
+    <td height="15" width="50">頻寬</td>
 	<td height="15" width="50">1M</td>
     <td height="15" width="50">2M</td>
     <td height="15" width="50">3M</td>
@@ -1397,22 +1397,22 @@ else
    </td>
   </tr>
   </table>
-  <?php echo (isset($_GET['speed']))?"下載1000KB數據用時 <font color='#cc0000'>".$_GET['speed']."</font> 毫秒，下載速度："."<font color='#cc0000'>".$speed."</font>"." kb/s，需測試多次取平均值，超過10M直接看下載速度":"<font color='#cc0000'>&nbsp;未探測&nbsp;</font>" ?>
+  <?php echo (isset($_GET['speed']))?"下載1000KB資料用時 <font color='#cc0000'>".$_GET['speed']."</font> 毫秒，下載速度："."<font color='#cc0000'>".$speed."</font>"." kb/s，需測試多次取平均值，超過10M直接看下載速度":"<font color='#cc0000'>&nbsp;未探測&nbsp;</font>" ?>
 
     </td>
   </tr>
 </table>
 
 <a name="w_MySQL"></a>
-<!--MySQL資料庫連接檢測-->
+<!--MySQL資料庫連線檢測-->
 <table>
-	<tr><th colspan="3">MySQL資料庫連接檢測</th></tr>
+	<tr><th colspan="3">MySQL資料庫連線檢測</th></tr>
   <tr>
     <td width="15%"></td>
     <td width="60%">
-      地址：<input type="text" name="host" value="localhost" size="10" />
-      端口：<input type="text" name="port" value="3306" size="10" />
-      用戶名：<input type="text" name="login" size="10" />
+      位址：<input type="text" name="host" value="localhost" size="10" />
+      埠：<input type="text" name="port" value="3306" size="10" />
+      使用者名稱：<input type="text" name="login" size="10" />
       密碼：<input type="password" name="password" size="10" />
     </td>
     <td width="25%">
@@ -1425,12 +1425,12 @@ else
   	if(function_exists("mysql_close")==1) {
   		$link = @mysql_connect($host.":".$port,$login,$password);
   		if ($link){
-  			echo "<script>alert('連接到MySql資料庫正常')</script>";
+  			echo "<script>alert('連線至MySql資料庫正常')</script>";
   		} else {
-  			echo "<script>alert('無法連接到MySql資料庫！')</script>";
+  			echo "<script>alert('無法連線至MySql資料庫！')</script>";
   		}
   	} else {
-  		echo "<script>alert('伺服器不支持MySQL資料庫！')</script>";
+  		echo "<script>alert('伺服器不支援MySQL資料庫！')</script>";
   	}
   }
 	?>
@@ -1457,9 +1457,9 @@ else
 </table>
 
 <a name="w_mail"></a>
-<!--郵件發送檢測-->
+<!--郵件傳送檢測-->
 <table>
-  <tr><th colspan="3">郵件發送檢測</th></tr>
+  <tr><th colspan="3">郵件傳送檢測</th></tr>
   <tr>
     <td width="15%"></td>
     <td width="60%">

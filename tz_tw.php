@@ -838,7 +838,7 @@ function displayData(dataJSON)
   <tr>
     <td width="13%" >伺服器目前時間</td>
     <td width="37%" ><span id="stime">1900-01-01 00:00:00</span></td>
-    <td width="13%" >伺服器已運作時間</td>
+    <td width="13%" >伺服器已執行時間</td>
     <td width="37%" colspan="3"><span id="uptime">00天00小時00分鐘</span></td>
   </tr>
   <tr>
@@ -1019,29 +1019,29 @@ foreach ($able as $key=>$value) {
   <tr>
     <td>dl()函式（enable_dl）：</td>
     <td><?php echo show("enable_dl");?></td>
-    <td>指定包含檔案目錄（include_path）：</td>
+    <td>指定包括檔案目錄（include_path）：</td>
     <td><?php echo show("include_path");?></td>
   </tr>
   <tr>
     <td>顯示錯誤資訊（display_errors）：</td>
     <td><?php echo show("display_errors");?></td>
-    <td>自訂全局變數（register_globals）：</td>
+    <td>自訂全域變數（register_globals）：</td>
     <td><?php echo show("register_globals");?></td>
   </tr>
   <tr>
     <td>資料反斜線轉譯（magic_quotes_gpc）：</td>
     <td><?php echo show("magic_quotes_gpc");?></td>
-    <td>"&lt;?...?&gt;"短標籤（short_open_tag）：</td>
+    <td>"&lt;?...?&gt;"短標記（short_open_tag）：</td>
     <td><?php echo show("short_open_tag");?></td>
   </tr>
   <tr>
     <td>"&lt;% %&gt;"ASP風格標記（asp_tags）：</td>
     <td><?php echo show("asp_tags");?></td>
-    <td>忽略重複錯誤資訊（ignore_repeated_errors）：</td>
+    <td>略過重複錯誤資訊（ignore_repeated_errors）：</td>
     <td><?php echo show("ignore_repeated_errors");?></td>
   </tr>
   <tr>
-    <td>忽略重複的錯誤源（ignore_repeated_source）：</td>
+    <td>略過重複的錯誤源（ignore_repeated_source）：</td>
     <td><?php echo show("ignore_repeated_source");?></td>
     <td>回報記憶體洩漏（report_memleaks）：</td>
     <td><?php echo show("report_memleaks");?></td>

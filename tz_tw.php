@@ -803,7 +803,7 @@ function displayData(dataJSON)
     <td colspan="3"><?php echo @get_current_user();?> - <?php echo $_SERVER['SERVER_NAME'];?>(<?php if('/'==DIRECTORY_SEPARATOR){echo $_SERVER['SERVER_ADDR'];}else{echo @gethostbyname($_SERVER['SERVER_NAME']);} ?>)&nbsp;&nbsp;你的IP位址是：<?php echo @$_SERVER['REMOTE_ADDR'];?></td>
   </tr>
   <tr>
-    <td>伺服器標識</td>
+    <td>伺服器識別</td>
     <td colspan="3"><?php if($sysInfo['win_n'] != ''){echo $sysInfo['win_n'];}else{echo @php_uname();};?></td>
   </tr>
   <tr>

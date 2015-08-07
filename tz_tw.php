@@ -146,7 +146,7 @@ elseif($_GET['act'] == "Function")
 	{
 	}
 	echo "<pre>";
-	Echo "這裡顯示系統所支援的所有函數，與自訂函數\n";
+	Echo "這裡顯示系統所支援的所有函式，與自訂函式\n";
 	print_r($arr);
 	echo "</pre>";
 	exit();
@@ -165,7 +165,7 @@ elseif($_GET['act'] == "Function")
 	{
 	}
 	echo "<pre>";
-	Echo "這裡顯示系統停用的函數\n";
+	Echo "這裡顯示系統停用的函式\n";
 	print_r($arr);
 	echo "</pre>";
 	exit();
@@ -183,9 +183,9 @@ if ($_POST['act'] == 'MySQL檢測')
 	$login = preg_match('~[^a-z0-9\_\-]+~i', $login) ? '' : htmlspecialchars($login);
 	$password = is_string($password) ? htmlspecialchars($password) : '';
 }
-elseif ($_POST['act'] == '函數檢測')
+elseif ($_POST['act'] == '函式檢測')
 {
-	$funRe = "函數".$_POST['funName']."支援狀況檢測結果：".isfun1($_POST['funName']);
+	$funRe = "函式".$_POST['funName']."支援狀況檢測結果：".isfun1($_POST['funName']);
 } 
 elseif ($_POST['act'] == '郵件檢測')
 {
@@ -214,7 +214,7 @@ else
 }	
 	
 	
-// 檢測函數支援
+// 檢測函式支援
 function isfun($funName = '')
 {
     if (!$funName || trim($funName) == '' || preg_match('~[^a-z0-9\_]+~i', $funName, $tmp)) return '錯誤';
@@ -1017,7 +1017,7 @@ foreach ($able as $key=>$value) {
     <td><?php echo show("user_dir");?></td>
   </tr>
   <tr>
-    <td>dl()函數（enable_dl）：</td>
+    <td>dl()函式（enable_dl）：</td>
     <td><?php echo show("enable_dl");?></td>
     <td>指定包含檔案目錄（include_path）：</td>
     <td><?php echo show("include_path");?></td>
@@ -1088,11 +1088,11 @@ foreach ($able as $key=>$value) {
     <td><?php echo get_cfg_var("SMTP")?get_cfg_var("SMTP"):'<font color="red">×</font>';?></td>
   </tr> 
 	<tr>
-		<td>預設支援函數（enable_functions）：</td>
+		<td>預設支援函式（enable_functions）：</td>
 		<td colspan="3"><a href='<?php echo $phpSelf;?>?act=Function' target='_blank' class='static'>請點這裡檢視詳細資料！</a></td>		
 	</tr>
 	<tr>
-		<td>被停用的函數（disable_functions）：</td>
+		<td>被停用的函式（disable_functions）：</td>
 		<td colspan="3" class="word">
 <?php 
 $disFuns=get_cfg_var("disable_functions");
@@ -1154,13 +1154,13 @@ else
     <td><?php echo isfun("gzclose");?></td>
   </tr>
   <tr>
-    <td>IMAP電子郵件系統函數庫：</td>
+    <td>IMAP電子郵件系統函式庫：</td>
     <td><?php echo isfun("imap_close");?></td>
-    <td>曆法運算函數庫：</td>
+    <td>曆法運算函式庫：</td>
     <td><?php echo isfun("JDToGregorian");?></td>
   </tr>
   <tr>
-    <td>規則運算式函數庫：</td>
+    <td>規則運算式函式庫：</td>
     <td><?php echo isfun("preg_match");?></td>
     <td>WDDX支援：</td>
     <td><?php echo isfun("wddx_add_vars");?></td>
@@ -1436,21 +1436,21 @@ else
 	?>
 
 <a name="w_function"></a>
-<!--函數檢測-->
+<!--函式檢測-->
 <table>
-	<tr><th colspan="3">函數檢測</th></tr>
+	<tr><th colspan="3">函式檢測</th></tr>
   <tr>
     <td width="15%"></td>
     <td width="60%">
-      請輸入您要檢測的函數：
+      請輸入您要檢測的函式：
       <input type="text" name="funName" size="50" />
     </td>
     <td width="25%">
-      <input class="btn" type="submit" name="act" align="right" value="函數檢測" />
+      <input class="btn" type="submit" name="act" align="right" value="函式檢測" />
     </td>
   </tr>
   <?php
-  if ($_POST['act'] == '函數檢測') {
+  if ($_POST['act'] == '函式檢測') {
   	echo "<script>alert('$funRe')</script>";
   }
   ?>

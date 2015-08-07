@@ -1061,7 +1061,7 @@ foreach ($able as $key=>$value) {
   <tr>
     <td>Cookie 支援：</td>
     <td><?php echo isset($_COOKIE)?'<font color="green">√</font>' : '<font color="red">×</font>';?></td>
-    <td>拼寫檢查（ASpell Library）：</td>
+    <td>拼字檢查（ASpell Library）：</td>
     <td><?php echo isfun("aspell_check_raw");?></td>
   </tr>
    <tr>

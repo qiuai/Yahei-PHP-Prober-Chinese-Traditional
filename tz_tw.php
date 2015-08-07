@@ -403,7 +403,7 @@ function sys_freebsd()
 	$days = floor($hours / 24);
 	$hours = floor($hours - ($days * 24));
 	$min = floor($min - ($days * 60 * 24) - ($hours * 60));
-	if ($days !== 0) $res['uptime'] = $days."日";
+	if ($days !== 0) $res['uptime'] = $days."天";
 	if ($hours !== 0) $res['uptime'] .= $hours."小時";
 	$res['uptime'] .= $min."分鐘";
 	//MEMORY
@@ -504,14 +504,14 @@ function sys_windows()
 	$days = floor($hours / 24);
 	$hours = floor($hours - ($days * 24));
 	$min = floor($min - ($days * 60 * 24) - ($hours * 60));
-	if ($days !== 0) $res['uptime'] = $days."日";
+	if ($days !== 0) $res['uptime'] = $days."天";
 	if ($hours !== 0) $res['uptime'] .= $hours."小時";
 	$res['uptime'] .= $min."分鐘";
 
 	//MEMORY
 	$res['memTotal'] = round($sysinfo[0]['TotalVisibleMemorySize']/1024,2);
 	$res['memFree'] = round($sysinfo[0]['FreePhysicalMemory']/1024,2);
-	$res['memUsed'] = $res['memTotal']-$res['memFree'];	//上面兩行已經除以1024，這行不用再除了
+	$res['memUsed'] = $res['memTotal']-$res['memFree'];	//上面兩列已經除以1024，這行不用再除了
 	$res['memPercent'] = round($res['memUsed'] / $res['memTotal']*100,2);
 
 	$swapinfo = GetWMI($wmi,"Win32_PageFileUsage", array('AllocatedBaseSize','CurrentUsage'));

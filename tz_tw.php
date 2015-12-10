@@ -978,10 +978,10 @@ foreach ($able as $key=>$value) {
     <td width="32%">PHP資訊（phpinfo）：</td>
     <td width="18%">
 		<?php
-		$phpSelf = $_SERVER[PHP_SELF] ? $_SERVER[PHP_SELF] : $_SERVER[SCRIPT_NAME];
+		$phpSelf = $_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
 		$disFuns=get_cfg_var("disable_functions");
 		?>
-    <?php echo (false!==eregi("phpinfo",$disFuns))? '<font color="red">×</font>' :"<a href='$phpSelf?act=phpinfo' target='_blank'>PHPINFO</a>";?>
+    <?php echo (true==preg_match("/phpinfo/i",$disFuns))? '<font color="red">×</font>' :"<a href='$phpSelf?act=phpinfo' target='_blank'>PHPINFO</a>";?>
     </td>
     <td width="32%">PHP版本（php_version）：</td>
     <td width="18%"><?php echo PHP_VERSION;?></td>
